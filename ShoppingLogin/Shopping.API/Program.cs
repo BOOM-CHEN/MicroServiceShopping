@@ -66,7 +66,8 @@ namespace Shopping.API
             #region DB
             builder.Services.AddDbContext<ShoppingDBContext>(opt =>
             {
-                opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
+                //opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
+                opt.UseMySQL(builder.Configuration.GetConnectionString("MySql"));
                 //opt.UseSqlite(builder.Configuration.GetConnectionString("Sqlite"));
             });
             #endregion

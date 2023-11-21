@@ -15,24 +15,27 @@ namespace Shopping.Entity.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.14");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "7.0.14")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("Shopping.Entity.Models.Password", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("IV")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("PublicKey")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(128)");
 
                     b.HasKey("Id");
 
@@ -44,39 +47,41 @@ namespace Shopping.Entity.Migrations
 
             modelBuilder.Entity("Shopping.Entity.Models.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasMaxLength(128)
+                        .HasColumnType("varchar(128)")
+                        .HasColumnName("Id");
 
                     b.Property<string>("RegisterTime")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Role")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Token")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UserAvatar")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UserEmail")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UserPassword")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UserPhoneNumber")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UserRecieveAddress")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
