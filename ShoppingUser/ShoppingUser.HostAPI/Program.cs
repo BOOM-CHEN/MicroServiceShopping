@@ -80,6 +80,7 @@ namespace ShoppingUser.HostAPI
             builder.Services.AddDbContext<UserDbContext>(opt =>
             {
                 opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
+                //opt.UseMySQL(builder.Configuration.GetConnectionString("MySql"));
             });
             #endregion
 
