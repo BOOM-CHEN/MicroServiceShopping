@@ -12,8 +12,8 @@ namespace Shopping.Application.IServices.IBase
 {
     public interface IBaseService<TEntity> where TEntity : class
     {
-        public Task InsertAsync(TEntity entity);
-        public Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> expression);
-        public Task UpdateAsync(TEntity entity);
+        Task InsertAsync(TEntity entity);
+        Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> expression);
+        Task UpdateAsync(TEntity entity);
     }
 }

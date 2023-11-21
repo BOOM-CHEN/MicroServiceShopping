@@ -12,17 +12,17 @@ namespace ShoppingUser.Application.IService
 {
     public interface IUserService : IBaseService<User>
     {
-        public Task InsertUserAsync(User user);
-        public Task DeleteUserAsync(Expression<Func<User, bool>> expression);
-        public Task DeleteAllUserAsync();
-        public Task<User> FindUserAsync(Expression<Func<User, bool>> expression);
-        public Task<List<User>> FindListUserAsync(Expression<Func<User, bool>> expression);
-        public Task<List<User>> FindLimitListUserAsync(int skip, int take);
-        public Task<List<User>> FindLimitListUserAsync(Expression<Func<User, bool>> expCondition,int skip, int take);
-        public Task<List<User>> FindAllUserAsync();
-        public Task<Password> FindPasswordAsync(Expression<Func<Password, bool>> expression);
-        public Task UpdateUserAsync(User user);
-        public Task UpdateUserAsync(Expression<Func<User, bool>> expression, Expression<Func<SetPropertyCalls<User>, SetPropertyCalls<User>>> setPropertyCalls);
-        public Task UpdatePasswordAsync(Expression<Func<Password, bool>> expression, Expression<Func<SetPropertyCalls<Password>, SetPropertyCalls<Password>>> setPropertyCalls);
+        Task InsertUserAsync(User user);
+        Task DeleteUserAsync(Expression<Func<User, bool>> expression);
+        Task DeleteAllUserAsync();
+        Task<User> FindUserAsync(Expression<Func<User, bool>> expression);
+        Task<List<User>> FindListUserAsync(Expression<Func<User, bool>> expression);
+        Task<List<User>> FindLimitListUserAsync(int skip, int take);
+        Task<List<User>> FindLimitListUserAsync(Expression<Func<User, bool>> expCondition,int skip, int take);
+        Task<List<User>> FindAllUserAsync();
+        Task<Password> FindPasswordAsync(Expression<Func<Password, bool>> expression);
+        Task UpdateUserAsync(User user);
+        Task UpdateUserAsync(Expression<Func<User, bool>> expression, Expression<Func<SetPropertyCalls<User>, SetPropertyCalls<User>>> setPropertyCalls);
+        Task UpdatePasswordAsync(Expression<Func<Password, bool>> expression, Expression<Func<SetPropertyCalls<Password>, SetPropertyCalls<Password>>> setPropertyCalls);
     }
 }

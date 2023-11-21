@@ -12,13 +12,13 @@ namespace Shopping.Entity.IRepositories.IBaseRepository
 {
     public interface IBaseRepository<TEntity> where TEntity : class
     {
-        public Task InsertAsync(TEntity entity);
-        public Task DeleteAsync(Expression<Func<TEntity, bool>> expression);
-        public Task DeleteAllAsync();
-        public Task UpdateAsync(TEntity entity);
-        public Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> expression);
-        public Task<List<TEntity>> FindAllAsync();
-        public Task<List<TEntity>> FindListAsync(Expression<Func<TEntity, bool>> expression);
+        Task InsertAsync(TEntity entity);
+        Task DeleteAsync(Expression<Func<TEntity, bool>> expression);
+        Task DeleteAllAsync();
+        Task UpdateAsync(TEntity entity);
+        Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> expression);
+        Task<List<TEntity>> FindAllAsync();
+        Task<List<TEntity>> FindListAsync(Expression<Func<TEntity, bool>> expression);
         
      
     }

@@ -11,9 +11,9 @@ namespace Shopping.Application.IServices
 {
     public interface IUserService : IBaseService<User>
     {
-        public Task InsertUserAsync(User user);
-        public Task<User> FindUserAsync(Expression<Func<User, bool>> expression);
-        public Task<Password> FindPasswordAsync(Expression<Func<Password, bool>> expression);
-        public Task UpdateUserAsync(User user);
+        Task InsertUserAsync(User user);
+        Task<User> FindUserAsync(Expression<Func<User, bool>> expression);
+        Task<Password> FindPasswordAsync(Expression<Func<Password, bool>> expression);
+        Task UpdateUserAsync(User user);
     }
 }

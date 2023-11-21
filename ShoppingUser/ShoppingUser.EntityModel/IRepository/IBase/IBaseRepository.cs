@@ -10,15 +10,15 @@ namespace ShoppingUser.EntityModel.IRepository.IBase
 {
     public interface IBaseRepository<TEntity> where TEntity : class
     {
-        public Task InsertAsync(TEntity entity);
-        public Task DeleteAsync(Expression<Func<TEntity, bool>> expression);
-        public Task DeleteAllAsync();
-        public Task UpdateAsync(TEntity entity);
-        public Task UpdateAsync(Expression<Func<TEntity, bool>> expression, Expression<Func<SetPropertyCalls<TEntity>, SetPropertyCalls<TEntity>>> setPropertyCalls);
-        public Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> expression);
-        public Task<List<TEntity>> FindAllAsync();
-        public Task<List<TEntity>> FindListAsync(Expression<Func<TEntity, bool>> expression);
-        public Task<List<TEntity>> FindLimitListAsync(Expression<Func<TEntity, string>> expOrder, int skip,int take);
-        public Task<List<TEntity>> FindLimitListAsync(Expression<Func<TEntity, bool>> expCondition, Expression<Func<TEntity, string>> expOrder, int skip, int take);
+        Task InsertAsync(TEntity entity);
+        Task DeleteAsync(Expression<Func<TEntity, bool>> expression);
+        Task DeleteAllAsync();
+        Task UpdateAsync(TEntity entity);
+        Task UpdateAsync(Expression<Func<TEntity, bool>> expression, Expression<Func<SetPropertyCalls<TEntity>, SetPropertyCalls<TEntity>>> setPropertyCalls);
+        Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> expression);
+        Task<List<TEntity>> FindAllAsync();
+        Task<List<TEntity>> FindListAsync(Expression<Func<TEntity, bool>> expression);
+        Task<List<TEntity>> FindLimitListAsync(Expression<Func<TEntity, string>> expOrder, int skip,int take);
+        Task<List<TEntity>> FindLimitListAsync(Expression<Func<TEntity, bool>> expCondition, Expression<Func<TEntity, string>> expOrder, int skip, int take);
     }
 }
