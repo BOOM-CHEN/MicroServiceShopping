@@ -2,24 +2,27 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Shopping.Entity.DBContext;
+using ShoppingUser.EntityModel.ShoppingUserDbContext;
 
 #nullable disable
 
-namespace Shopping.Entity.Migrations
+namespace ShoppingUser.EntityModel.Migrations
 {
-    [DbContext(typeof(ShoppingDBContext))]
-    partial class ShoppingDBContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(UserDbContext))]
+    [Migration("20231121082307_usemysql")]
+    partial class usemysql
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Shopping.Entity.Models.Password", b =>
+            modelBuilder.Entity("ShoppingUser.EntityModel.Models.Password", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -45,11 +48,10 @@ namespace Shopping.Entity.Migrations
                     b.ToTable("T_UserPassword", (string)null);
                 });
 
-            modelBuilder.Entity("Shopping.Entity.Models.User", b =>
+            modelBuilder.Entity("ShoppingUser.EntityModel.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(128)
                         .HasColumnType("varchar(128)")
                         .HasColumnName("Id");
 
@@ -88,18 +90,18 @@ namespace Shopping.Entity.Migrations
                     b.ToTable("T_User", (string)null);
                 });
 
-            modelBuilder.Entity("Shopping.Entity.Models.Password", b =>
+            modelBuilder.Entity("ShoppingUser.EntityModel.Models.Password", b =>
                 {
-                    b.HasOne("Shopping.Entity.Models.User", "User")
+                    b.HasOne("ShoppingUser.EntityModel.Models.User", "User")
                         .WithOne("Passwords")
-                        .HasForeignKey("Shopping.Entity.Models.Password", "UserId")
+                        .HasForeignKey("ShoppingUser.EntityModel.Models.Password", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Shopping.Entity.Models.User", b =>
+            modelBuilder.Entity("ShoppingUser.EntityModel.Models.User", b =>
                 {
                     b.Navigation("Passwords");
                 });

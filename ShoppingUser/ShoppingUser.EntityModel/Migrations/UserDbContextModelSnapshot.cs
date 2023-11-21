@@ -2,40 +2,40 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Shopping.Entity.DBContext;
+using ShoppingUser.EntityModel.ShoppingUserDbContext;
 
 #nullable disable
 
-namespace Shopping.Entity.Migrations
+namespace ShoppingUser.EntityModel.Migrations
 {
-    [DbContext(typeof(ShoppingDBContext))]
-    [Migration("20231117012708_Sqlite3-4")]
-    partial class Sqlite34
+    [DbContext(typeof(UserDbContext))]
+    partial class UserDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.14");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "7.0.14")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Shopping.Entity.Models.Password", b =>
+            modelBuilder.Entity("ShoppingUser.EntityModel.Models.Password", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("IV")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("PublicKey")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("longtext");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("TEXT");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(128)");
 
                     b.HasKey("Id");
 
@@ -45,59 +45,60 @@ namespace Shopping.Entity.Migrations
                     b.ToTable("T_UserPassword", (string)null);
                 });
 
-            modelBuilder.Entity("Shopping.Entity.Models.User", b =>
+            modelBuilder.Entity("ShoppingUser.EntityModel.Models.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(128)")
+                        .HasColumnName("Id");
 
                     b.Property<string>("RegisterTime")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Role")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Token")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UserAvatar")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UserEmail")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UserPassword")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UserPhoneNumber")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UserRecieveAddress")
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
                     b.ToTable("T_User", (string)null);
                 });
 
-            modelBuilder.Entity("Shopping.Entity.Models.Password", b =>
+            modelBuilder.Entity("ShoppingUser.EntityModel.Models.Password", b =>
                 {
-                    b.HasOne("Shopping.Entity.Models.User", "User")
+                    b.HasOne("ShoppingUser.EntityModel.Models.User", "User")
                         .WithOne("Passwords")
-                        .HasForeignKey("Shopping.Entity.Models.Password", "UserId")
+                        .HasForeignKey("ShoppingUser.EntityModel.Models.Password", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Shopping.Entity.Models.User", b =>
+            modelBuilder.Entity("ShoppingUser.EntityModel.Models.User", b =>
                 {
                     b.Navigation("Passwords");
                 });

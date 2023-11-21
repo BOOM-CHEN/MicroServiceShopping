@@ -27,6 +27,10 @@ namespace Shopping.Entity.DBContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().ToTable("T_User");
+            /*modelBuilder.Entity<User>(entity =>
+            {
+                entity.Property(p => p.Id).IsRequired().HasMaxLength(128).HasColumnName("Id").HasColumnType("varchar(128)");
+            });*/
             modelBuilder.Entity<User>()
                 .HasOne(u => u.Passwords)
                 .WithOne(p => p.User)
