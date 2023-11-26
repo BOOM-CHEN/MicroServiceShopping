@@ -204,6 +204,7 @@ namespace ShoppingUser.Application.Controllers
                 IV = Convert.ToBase64String(IV)
             };
             await _userService.InsertUserAsync(user);
+            await _distributedCache.RemoveAsync("GetAllUser");
             return new MessageModel<string>()
             {
                 status = 200,
@@ -267,6 +268,7 @@ namespace ShoppingUser.Application.Controllers
                 IV = Convert.ToBase64String(IV)
             };
             await _userService.InsertUserAsync(user);
+            await _distributedCache.RemoveAsync("GetAllUser");
             return new MessageModel<string>()
             {
                 status = 200,
@@ -325,6 +327,7 @@ namespace ShoppingUser.Application.Controllers
                       .SetProperty(sp => sp.UserRecieveAddress, updateUserDto.UserRecieveAddress == "" ? user.UserRecieveAddress : updateUserDto.UserRecieveAddress)
                       .SetProperty(sp => sp.Role, updateUserDto.Role == "" ? user.Role : updateUserDto.Role)
                 );
+            await _distributedCache.RemoveAsync("GetAllUser");
             return new MessageModel<string>()
             {
                 status = 200,
@@ -373,6 +376,7 @@ namespace ShoppingUser.Application.Controllers
                       .SetProperty(sp => sp.UserPhoneNumber, updateUserUserDto.UserPhoneNumber == "" ? user.UserPhoneNumber : updateUserUserDto.UserPhoneNumber)
                       .SetProperty(sp => sp.UserRecieveAddress, updateUserUserDto.UserRecieveAddress == "" ? user.UserRecieveAddress : updateUserUserDto.UserRecieveAddress)
                 );
+            await _distributedCache.RemoveAsync("GetAllUser");
             return new MessageModel<string>()
             {
                 status = 200,
@@ -399,6 +403,7 @@ namespace ShoppingUser.Application.Controllers
             await _userService.UpdatePasswordAsync(p => p.UserId == user.Id,
                 s => s.SetProperty(sp => sp.PublicKey, Convert.ToBase64String(PublicKey))
                       .SetProperty(sp => sp.IV,Convert.ToBase64String(IV)));
+            await _distributedCache.RemoveAsync("GetAllUser");
             return new MessageModel<string>()
             {
                 status = 200,
@@ -412,6 +417,7 @@ namespace ShoppingUser.Application.Controllers
         public async Task<MessageModel<string>> DeleteAllUser()
         {
             await _userService.DeleteAllUserAsync();
+            await _distributedCache.RemoveAsync("GetAllUser");
             return new MessageModel<string>()
             {
                 status = 200,
@@ -434,6 +440,7 @@ namespace ShoppingUser.Application.Controllers
                 };
             }
             await _userService.DeleteUserAsync(u => u.Id == id);
+            await _distributedCache.RemoveAsync("GetAllUser");
             return new MessageModel<string>()
             {
                 status = 200,
@@ -457,6 +464,7 @@ namespace ShoppingUser.Application.Controllers
                 };
             }
             await _userService.DeleteUserAsync(u => u.UserEmail == email);
+            await _distributedCache.RemoveAsync("GetAllUser");
             return new MessageModel<string>()
             {
                 status = 200,
@@ -468,23 +476,34 @@ namespace ShoppingUser.Application.Controllers
 
         [Authorize(Roles = "admin,root")]
         [HttpDelete("DeleteManyUser")]
-        public async Task<MessageModel<string>> DeleteManyUser([FromBody] List<Guid> ids)
+        public async Task<MessageModel<string>> DeleteManyUser([FromBody] List<string> emails)
         {
-            int count;
-            for(count = 0; count < ids.Count; count++)
+            if(emails.Count == 0)
             {
-                var user = await _userService.FindUserAsync(u => u.Id == ids[count]);
+                return new MessageModel<string>()
+                {
+                    status = 404,
+                    success = false,
+                    message = "请输入要删除的邮箱"
+                };
+            }
+            int num = 0;
+            for(int count = 0; count < emails.Count; count++)
+            {
+                var user = await _userService.FindUserAsync(u => u.UserEmail == emails[count]);
                 if(user == null)
                 {
                     continue;
                 }
-                await _userService.DeleteUserAsync(u => u.Id == ids[count]);
+                await _userService.DeleteUserAsync(u => u.UserEmail == emails[count]);
+                num++;
             }
+            await _distributedCache.RemoveAsync("GetAllUser");
             return new MessageModel<string>()
             {
                 status = 200,
                 success = true,
-                message = $"已删除{count}条,{ids.Count- count}条删除失败"
+                message = $"已删除{num}条,{emails.Count - num}条删除失败"
             };
         }
 

@@ -17,6 +17,8 @@ using ShoppingUser.EntityModel.Repository;
 using ShoppingUser.EntityModel.Repository.Base;
 using ShoppingUser.EntityModel.ShoppingUserDbContext;
 using System.Text;
+using Microsoft.OpenApi.Models;
+using ShoppingUser.HostAPI.Utils;
 
 namespace ShoppingUser.HostAPI
 {
@@ -26,12 +28,9 @@ namespace ShoppingUser.HostAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerService();
 
             #region MongoDb
             //MongoDBÁ¬½Ó
